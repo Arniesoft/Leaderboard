@@ -11,25 +11,28 @@ if ($result = $mysqli->query($sql)) {
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
 
+            // Inline CSS voor minimale afstand tussen regels
+            $style = "margin: 0; padding: 0; line-height: 1.5;";
+
             // Als flag is ingevuld, toon gevlagde game met speciale stijl
             if (!empty($row['flag'])) {
-                echo "<p style='color: red; font-style: italic; text-decoration: line-through; display: inline;'>"
+                echo "<p style='color: red; font-style: italic; text-decoration: line-through; display: inline; $style'>"
                      . $row["datum"] . " - Speler: " . ($row["speler1"] ?? 'Onbekend') .
                      " - Score: " . $row["score_winnaar"] . " - VS - Score: " . $row["score_verliezer"] .
                      " - Speler: " . ($row["speler2"] ?? 'Onbekend') . "</p>"
-                     . "<span style='color: red; font-style: italic; text-decoration: none;'> *(Reden: " . htmlspecialchars($row['flag']) . ")*</span><br>";
+                     . "<span style='color: red; font-style: italic; text-decoration: none;'> *(Reden: " . htmlspecialchars($row['flag']) . ")*</span>";
             }
             // Als het een gelijkspel is, toon met schuine stijl
             else if ($row['draw'] == 1) {
-                echo "<p style='font-style: italic;'>" . $row["datum"] . " - Speler: " . ($row["speler1"] ?? 'Onbekend') .
+                echo "<p style='font-style: italic; $style'>" . $row["datum"] . " - Speler: " . ($row["speler1"] ?? 'Onbekend') .
                      " - Score: " . $row["score_winnaar"] . " - VS - Score: " . $row["score_verliezer"] .
-                     " - Speler: " . ($row["speler2"] ?? 'Onbekend') . "</p><br>";
+                     " - Speler: " . ($row["speler2"] ?? 'Onbekend') . "</p>";
             }
             // Voor een normale wedstrijd zonder flag of draw
             else {
-                echo "<p>" . $row["datum"] . " - Speler: " . ($row["speler1"] ?? 'Onbekend') .
+                echo "<p style='$style'>" . $row["datum"] . " - Speler: " . ($row["speler1"] ?? 'Onbekend') .
                      " - Score: " . $row["score_winnaar"] . " - VS - Score: " . $row["score_verliezer"] .
-                     " - Speler: " . ($row["speler2"] ?? 'Onbekend') . "</p><br>";
+                     " - Speler: " . ($row["speler2"] ?? 'Onbekend') . "</p>";
             }
         }
     } else {
