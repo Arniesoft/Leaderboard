@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';  // Aanpassen naar je database host
-$username = 'user';  // Aanpassen naar je database gebruikersnaam
+$username = 'database_user';  // Aanpassen naar je database gebruikersnaam
 $password = 'p@ssw0rd';  // Aanpassen naar je database wachtwoord
-$database = 'user_leaderboard';  // Aanpassen naar je database naam
+$database = 'database_name';  // Aanpassen naar je database naam
 
 // Creëer een databaseverbinding
 $mysqli = new mysqli($host, $username, $password, $database);
