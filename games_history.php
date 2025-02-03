@@ -13,6 +13,10 @@ if ($result = $mysqli->query($sql)) {
 
             // Inline CSS voor minimale afstand tussen regels
             $style = "margin: 0; padding: 0; line-height: 1.5;";
+            $reasonStyle = "font-size: inherit; color: red; font-style: italic; text-decoration: none;";
+
+            // Begin een div-blok voor elke wedstrijd
+            echo "<div style='margin-bottom: 5px;'>";
 
             // Als flag is ingevuld, toon gevlagde game met speciale stijl
             if (!empty($row['flag'])) {
@@ -20,7 +24,7 @@ if ($result = $mysqli->query($sql)) {
                      . $row["datum"] . " - Speler: " . ($row["speler1"] ?? 'Onbekend') .
                      " - Score: " . $row["score_winnaar"] . " - VS - Score: " . $row["score_verliezer"] .
                      " - Speler: " . ($row["speler2"] ?? 'Onbekend') . "</p>"
-                     . "<span style='color: red; font-style: italic; text-decoration: none;'> *(Reden: " . htmlspecialchars($row['flag']) . ")*</span>";
+                     . "<span style='$reasonStyle'> *(Reden: " . htmlspecialchars($row['flag']) . ")*</span>";
             }
             // Als het een gelijkspel is, toon met schuine stijl
             else if ($row['draw'] == 1) {
@@ -34,6 +38,9 @@ if ($result = $mysqli->query($sql)) {
                      " - Score: " . $row["score_winnaar"] . " - VS - Score: " . $row["score_verliezer"] .
                      " - Speler: " . ($row["speler2"] ?? 'Onbekend') . "</p>";
             }
+
+            // Sluit het div-blok af
+            echo "</div>";
         }
     } else {
         echo "<p>Geen matchgegevens beschikbaar.</p>";
